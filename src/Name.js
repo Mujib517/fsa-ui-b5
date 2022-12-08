@@ -1,5 +1,5 @@
-const Name = (props) => {
-    return <h3>Hello, {props.val}</h3>
+const Name = ({ val }) => {
+    return <h3>Hello, {val}</h3>
 };
 
 export default Name;
