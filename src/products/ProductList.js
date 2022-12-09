@@ -1,5 +1,9 @@
 import React from 'react';
+import Product from './Product';
 
+// container: contains data
+// maintining data & presenting data
+// presenation
 const ProductList = () => {
 
     const data = [
@@ -10,12 +14,7 @@ const ProductList = () => {
 
     return <div>
         <h1>Products</h1>
-        {data.map(product => <div>
-            <h3>{product.brand}</h3>
-            <b>$ {product.price}</b>
-            <img src={product.image} width="100" height="100" />
-            <hr />
-        </div>)}
+        {data.map(p => <Product product={p} />)}
     </div>
 };
 

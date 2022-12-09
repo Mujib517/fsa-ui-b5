@@ -4,8 +4,6 @@
 // class components may have state
 // internal
 // props
-import Name from './Name';
-import Counter from './Counter';
 import ProductList from './products/ProductList';
 
 const App = () => {
