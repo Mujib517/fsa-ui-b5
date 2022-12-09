@@ -6,14 +6,11 @@
 // props
 import Name from './Name';
 import Counter from './Counter';
+import ProductList from './products/ProductList';
 
 const App = () => {
     return <div>
-        <Counter count={0} />
-        <Counter count={10} />
-        <Name val="John" />
-        <Name val="Joseph" />
-        <h1>Hello React!!</h1>
+        <ProductList />
     </div>
 };
 
