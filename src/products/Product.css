@@ -1,5 +1,3 @@
-.button {
-    border: 0;
-    width: 100px;
-    color: green;
+.custom-btn i {
+    margin: 5px;
 }

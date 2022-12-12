@@ -20,11 +20,12 @@ const Product = ({ product }) => {
                 </div>
             </div>
             <div className="card-footer">
-                <button className="btn btn-success btn-lg" disabled={product.inStock}>Add to cart</button>
+                <button className="custom-btn btn btn-danger btn-sm" disabled={product.inStock}>
+                    Add to cart
+                    <i className="fa-sharp fa-solid fa-cart-plus"></i>
+                </button>
             </div>
         </div>
-
-
         <hr />
     </div>
 };
