@@ -1,4 +1,5 @@
 import React from 'react';
+import './Product.css';
 
 // dumb 
 // presentation
@@ -16,7 +17,7 @@ const Product = ({ product }) => {
         <div style={{ textDecoration: product.discount > 0 ? 'line-through' : '' }}>Was: ${product.price}</div>
         <div>Is: ${getDiscountedPrice()}</div>
         <img alt="product" src={product.image} width="100" height="100" />
-        <button disabled={product.inStock}>Buy Now</button>
+        <button className="button" disabled={product.inStock}>Buy Now</button>
         <hr />
     </div>
 };
