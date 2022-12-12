@@ -5,10 +5,11 @@
 // internal
 // props
 import ProductList from './products/ProductList';
+import Users from './users/Users';
 
 const App = () => {
     return <div>
-        <ProductList />
+        <Users />
     </div>
 };
 

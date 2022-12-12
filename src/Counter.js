@@ -5,8 +5,10 @@ class Counter extends React.Component {
 
     constructor(props) {
         super(props);
+        // create
         this.state = {
-            count: props.count
+            count: props.count,
+            xyz: 123
         }
     }
 
@@ -21,14 +23,12 @@ class Counter extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <h1>Counter {this.state.count}</h1>
+        return <div>
+            <h1>Counter {this.state.count}</h1>
 
-                <button onClick={this.inc}>++</button>
-                <button onClick={this.dec}>--</button>
-            </div>
-        )
+            <button onClick={this.inc}>++</button>
+            <button onClick={this.dec}>--</button>
+        </div>
     }
 }
 
