@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserItem from './UserItem';
 import Loader from '../common/Loader';
 import Error from '../common/Error';
+import ShouldRender from '../common/ShouldRender';
 // boilerplate
 // fetch
 // render
@@ -20,7 +21,7 @@ class Users extends React.Component {
         // api calls
         // light weight
         // conditional rendering
-        axios.get('https://api.github.com/users')
+        axios.get('https://api.github.com/users1')
             .then(res => this.setState({ users: res.data }))
             .catch(err => this.setState({ hasError: true }))
             .finally(() => this.setState({ loading: false }));
@@ -29,8 +30,12 @@ class Users extends React.Component {
     render() {
         return <div className="container">
             <h1>Users</h1>
-            {this.state.hasError ? <Error /> : null}
-            {this.state.loading ? <Loader /> : null}
+            <ShouldRender cond={this.state.hasError}>
+                <Error />
+            </ShouldRender>
+            <ShouldRender cond={this.state.loading}>
+                <Loader />
+            </ShouldRender>
             {this.state.users.map(user => <UserItem user={user} />)}
         </div>
     }
