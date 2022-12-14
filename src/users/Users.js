@@ -21,7 +21,7 @@ class Users extends React.Component {
         // api calls
         // light weight
         // conditional rendering
-        axios.get('https://api.github.com/users1')
+        axios.get('https://api.github.com/users')
             .then(res => this.setState({ users: res.data }))
             .catch(err => this.setState({ hasError: true }))
             .finally(() => this.setState({ loading: false }));

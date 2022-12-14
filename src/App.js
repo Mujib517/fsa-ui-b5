@@ -9,7 +9,7 @@ import Users from './users/Users';
 
 const App = () => {
     return <div>
-        <Users />
+        <ProductList />
     </div>
 };
 
