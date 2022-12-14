@@ -4,12 +4,14 @@
 // class components may have state
 // internal
 // props
+import NewProduct from './products/NewProduct';
 import ProductList from './products/ProductList';
 import Users from './users/Users';
 
 const App = () => {
     return <div>
-        <ProductList />
+        <NewProduct />
+        {/* <ProductList /> */}
     </div>
 };
 
