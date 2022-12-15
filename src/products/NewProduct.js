@@ -1,39 +1,107 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import ShouldRender from '../common/ShouldRender';
+import Error from '../common/Error';
+
+/*
+    1. Create component
+    2. UI (controls)
+    3. Collect data & update state
+    4. push to api
+*/
 
 class NewProduct extends Component {
 
     state = {
-        brand: '',
-        model: '',
-        inStock: false,
-        price: 0,
-        discount: 0,
+        product: {
+            brand: '',
+            model: '',
+            inStock: false,
+            price: '',
+            discount: '',
+        },
+        success: false,
+        hasError: false,
     };
 
+    // refactoring
     onControlChange = (evt) => {
-        this.setState({ [evt.target.name]: evt.target.value });
+        const productState = {
+            ...this.state.product,
+            [evt.target.name]: evt.target.value
+        };
+
+        this.setState({ product: productState });
     }
 
-    onSave = () => {
-        console.log(this.state);
+    onSave = async (e) => {
+        e.preventDefault();
+        try {
+            // const payload = { ...this.state };
+            // delete payload.hasError;
+            // delete payload.success;
+            // single page app
+            this.state.product.inStock = !!this.state.product.inStock;
+            await axios.post('https://fsa-api-b4.onrender.com/api/products', this.state.product);
+            this.setState({
+                success: true,
+                hasError: false,
+                product: {
+                    brand: '',
+                    model: '',
+                    inStock: false,
+                    price: '',
+                    discount: '',
+                }
+            });
+        } catch (e) {
+            // error
+            this.setState({ hasError: true, success: false });
+        }
     }
 
     render() {
+        const { hasError, success } = this.state;
+        const { brand, model, price, inStock, discount } = this.state.product;
+
         return <div className="container m-3">
             <h4>Add New Product</h4>
+            <ShouldRender cond={hasError}>
+                <Error />
+            </ShouldRender>
+            <ShouldRender cond={success}>
+                <div className="alert alert-success">
+                    Successfully operation completed.
+                </div>
+            </ShouldRender>
             <div className="col-4">
-                <form>
+                <form onSubmit={this.onSave}>
                     <div class="mb-3">
                         <label for="brand" class="form-label">Brand</label>
-                        <input onChange={this.onControlChange} name="brand" type="text" class="form-control" id="brand" placeholder="Brand" />
+                        <input value={brand}
+                            onChange={this.onControlChange}
+                            name="brand" type="text"
+                            class="form-control" id="brand"
+                            placeholder="Brand" />
+                        {
+                            !brand ?
+                                <span className="text-danger">Brand required</span>
+                                : null
+                        }
                     </div>
                     <div class="mb-3">
                         <label for="model" class="form-label">Model</label>
-                        <input onChange={this.onControlChange} name="model" type="text" class="form-control" id="model" placeholder="Model" />
+                        <input value={model} onChange={this.onControlChange} name="model" type="text" class="form-control" id="model" placeholder="Model" />
+                        <ShouldRender cond={!model}>
+                            <span className="text-danger">Model required</span>
+                        </ShouldRender>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input onChange={this.onControlChange} name="price" type="text" class="form-control" id="price" placeholder="Price" />
+                        <input value={price} onChange={this.onControlChange} name="price" type="text" class="form-control" id="price" placeholder="Price" />
+                        <ShouldRender cond={!price}>
+                            <span className="text-danger">Price required</span>
+                        </ShouldRender>
                     </div>
                     <div class="mb-3">
                         <label for="inStock" class="form-check-label">In Stock?</label>
@@ -41,10 +109,10 @@ class NewProduct extends Component {
                     </div>
                     <div class="mb-3">
                         <label for="discount" class="form-label">Discount</label>
-                        <input onChange={this.onControlChange} name="discount" type="text" class="form-control" id="discount" placeholder="Discount" />
+                        <input value={discount} onChange={this.onControlChange} name="discount" type="text" class="form-control" id="discount" placeholder="Discount" />
                     </div>
                     <div class="mb-3">
-                        <button type="button" onClick={this.onSave} className="btn btn-success">
+                        <button disabled={!brand || !model || !price} type="submit" className="btn btn-success">
                             Save
                             <i className="fa fa-save"></i>
                         </button>

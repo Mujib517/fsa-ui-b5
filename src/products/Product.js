@@ -20,7 +20,7 @@ const Product = ({ product }) => {
                 </div>
             </div>
             <div className="card-footer">
-                <button className="custom-btn btn btn-danger btn-sm" disabled={product.inStock}>
+                <button className="custom-btn btn btn-danger btn-sm" disabled={!product.inStock}>
                     Add to cart
                     <i className="fa-sharp fa-solid fa-cart-plus"></i>
                 </button>
