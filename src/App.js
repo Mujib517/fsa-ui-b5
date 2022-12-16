@@ -19,6 +19,7 @@ import Contact from './Contact';
 import Users from './users/Users';
 import NotFound from './NotFound';
 import NewProduct from './products/NewProduct';
+import ProductDetail from './products/ProductDetail';
 
 const App = () => {
     return <div>
@@ -31,6 +32,7 @@ const App = () => {
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/products/new" element={<NewProduct />} />
+                <Route path="/products/detail/:id" element={<ProductDetail />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

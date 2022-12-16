@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ShouldRender from '../common/ShouldRender';
 import Error from '../common/Error';
-
 /*
     1. Create component
     2. UI (controls)
@@ -11,6 +10,10 @@ import Error from '../common/Error';
 */
 
 class NewProduct extends Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     state = {
         product: {
