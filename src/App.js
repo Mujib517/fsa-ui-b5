@@ -4,14 +4,37 @@
 // class components may have state
 // internal
 // props
-import NewProduct from './products/NewProduct';
+/*
+    * Instal react-router-dom
+    * header links
+    * Route configurations
+*/
+import Footer from './Footer';
+import Header from './Header';
 import ProductList from './products/ProductList';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
 import Users from './users/Users';
+import NotFound from './NotFound';
+import NewProduct from './products/NewProduct';
 
 const App = () => {
     return <div>
-        <NewProduct />
-        {/* <ProductList /> */}
+        <BrowserRouter>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/products" element={<ProductList />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/products/new" element={<NewProduct />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+        </BrowserRouter>
     </div>
 };
 

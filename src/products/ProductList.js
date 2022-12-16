@@ -3,6 +3,7 @@ import axios from 'axios';
 import ProductItem from './Product';
 import Error from '../common/Error';
 import ShouldRender from '../common/ShouldRender';
+import { Link } from 'react-router-dom';
 
 class ProductList extends Component {
 
@@ -24,7 +25,11 @@ class ProductList extends Component {
 
     render() {
         return <div className="container">
-            <h4>Users</h4>
+            <h4>Products</h4>
+            <Link className="btn btn-danger btn-sm"
+                to="/products/new">
+                Add Product
+            </Link>
             <ShouldRender cond={this.state.hasError}>
                 <Error />
             </ShouldRender>
