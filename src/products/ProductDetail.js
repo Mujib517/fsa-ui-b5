@@ -1,5 +1,33 @@
 import React from 'react';
 import axios from 'axios';
+import ShouldRender from '../common/ShouldRender';
+import * as moment from 'moment';
+
+const Reviews = ({ product }) => {
+    const getUpdateDate = (review) => {
+        // const dt = new Date(review.updatedDate).toLocaleDateString();
+        // const time = new Date(review.updatedDate).toLocaleTimeString()
+        // return dt + ' ' + time;
+        return moment(review.updatedDate).fromNow();
+    }
+
+    return <div className="row">
+        <h4>User Reviews</h4>
+        <hr />
+        <ShouldRender cond={product.reviews.length === 0}>
+            <div>
+                Be the first one to review
+            </div>
+            <button className="btn btn-sm btn-success">Add Review</button>
+        </ShouldRender>
+        {product.reviews.map(review => <div>
+            <h6>{review.subject} {review.rating}*</h6>
+            <div>{review.message}</div>
+            <div>{getUpdateDate(review)}</div>
+            <hr />
+        </div>)}
+    </div>
+};
 
 // life cycle events
 // Constructor
@@ -42,16 +70,7 @@ class ProductDetail extends React.Component {
                     <button className="btn btn-sm btn-danger">Buy Now</button>
                 </div>
             </div>
-            <div className="row">
-                <h4>User Reviews</h4>
-                <hr />
-                {product.reviews.map(review => <div>
-                    <h6>{review.subject} {review.rating}*</h6>
-                    <div>{review.message}</div>
-                    <div>{review.updatedDate}</div>
-                    <hr />
-                </div>)}
-            </div>
+            <Reviews product={product} />
         </div>
     }
 }
