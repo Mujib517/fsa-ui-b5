@@ -9,7 +9,7 @@ const Reviews = ({ product }) => {
         // const time = new Date(review.updatedDate).toLocaleTimeString()
         // return dt + ' ' + time;
         return moment(review.updatedDate).fromNow();
-    }
+    };
 
     return <div className="row">
         <h4>User Reviews</h4>
