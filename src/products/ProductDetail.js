@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ShouldRender from '../common/ShouldRender';
 import * as moment from 'moment';
@@ -46,11 +47,13 @@ const ProductDetail = () => {
         reviews: []
     });
 
-    // componentDidMount
+    const params = useParams();
+
     useEffect(() => {
         // IIFE
         (async () => {
-            const res = await axios.get('https://fsa-api-b4.onrender.com/api/products/639be256f6cdd8e61b7ff1b0');
+            const id = params.id;
+            const res = await axios.get(`https://fsa-api-b4.onrender.com/api/products/${id}`);
             setProduct(res.data);
         })();
     }, []);
