@@ -8,19 +8,19 @@ const Header = () => {
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                        <Link class="nav-link" to="/">Home</Link>
+                        <Link className="nav-link" to="/">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link class="nav-link" to="/about">About</Link>
+                        <Link className="nav-link" to="/about">About</Link>
                     </li>
                     <li className="nav-item">
-                        <Link class="nav-link" to="/products">Products</Link>
+                        <Link className="nav-link" to="/products">Products</Link>
                     </li>
                     <li className="nav-item">
-                        <Link class="nav-link" to="/users">Users</Link>
+                        <Link className="nav-link" to="/users">Users</Link>
                     </li>
                     <li className="nav-item">
-                        <Link class="nav-link" to="/contact">Contact</Link>
+                        <Link className="nav-link" to="/contact">Contact</Link>
                     </li>
                 </ul>
             </div >

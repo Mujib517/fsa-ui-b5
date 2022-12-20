@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductItem from './Product';
 import Error from '../common/Error';
@@ -32,7 +32,7 @@ const ProductList = () => {
         </ShouldRender>
         {
             response.data.map(
-                product => <ProductItem product={product} />
+                product => <ProductItem key={product._id} product={product} />
             )
         }
     </div>;

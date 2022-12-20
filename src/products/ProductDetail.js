@@ -20,7 +20,7 @@ const Reviews = ({ product }) => {
             </div>
             <button className="btn btn-sm btn-success">Add Review</button>
         </ShouldRender>
-        {product.reviews.map(review => <div>
+        {product.reviews.map((review, index) => <div key={index}>
             <h6>{review.subject} {review.rating}*</h6>
             <div>{review.message}</div>
             <div>{getUpdateDate(review)}</div>
@@ -47,9 +47,12 @@ const ProductDetail = () => {
     });
 
     // componentDidMount
-    useEffect(async () => {
-        const res = await axios.get('https://fsa-api-b4.onrender.com/api/products/639be256f6cdd8e61b7ff1b0');
-        setProduct(res.data);
+    useEffect(() => {
+        // IIFE
+        (async () => {
+            const res = await axios.get('https://fsa-api-b4.onrender.com/api/products/639be256f6cdd8e61b7ff1b0');
+            setProduct(res.data);
+        })();
     }, []);
 
     const getDiscountedPrice = (product) => {

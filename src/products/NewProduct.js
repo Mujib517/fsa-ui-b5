@@ -11,10 +11,6 @@ import Error from '../common/Error';
 
 class NewProduct extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         product: {
             brand: '',
@@ -44,8 +40,9 @@ class NewProduct extends Component {
             // delete payload.hasError;
             // delete payload.success;
             // single page app
-            this.state.product.inStock = !!this.state.product.inStock;
-            await axios.post('https://fsa-api-b4.onrender.com/api/products', this.state.product);
+            const productToBeAdded = { ...this.state.product };
+            productToBeAdded.inStock = !!productToBeAdded.inStock;
+            await axios.post('https://fsa-api-b4.onrender.com/api/products', productToBeAdded);
             this.setState({
                 success: true,
                 hasError: false,
@@ -65,7 +62,7 @@ class NewProduct extends Component {
 
     render() {
         const { hasError, success } = this.state;
-        const { brand, model, price, inStock, discount } = this.state.product;
+        const { brand, model, price, discount } = this.state.product;
 
         return <div className="container m-3">
             <h4>Add New Product</h4>
@@ -79,12 +76,12 @@ class NewProduct extends Component {
             </ShouldRender>
             <div className="col-4">
                 <form onSubmit={this.onSave}>
-                    <div class="mb-3">
-                        <label for="brand" class="form-label">Brand</label>
+                    <div className="mb-3">
+                        <label for="brand" className="form-label">Brand</label>
                         <input value={brand}
                             onChange={this.onControlChange}
                             name="brand" type="text"
-                            class="form-control" id="brand"
+                            className="form-control" id="brand"
                             placeholder="Brand" />
                         {
                             !brand ?
@@ -92,29 +89,29 @@ class NewProduct extends Component {
                                 : null
                         }
                     </div>
-                    <div class="mb-3">
-                        <label for="model" class="form-label">Model</label>
-                        <input value={model} onChange={this.onControlChange} name="model" type="text" class="form-control" id="model" placeholder="Model" />
+                    <div className="mb-3">
+                        <label for="model" className="form-label">Model</label>
+                        <input value={model} onChange={this.onControlChange} name="model" type="text" className="form-control" id="model" placeholder="Model" />
                         <ShouldRender cond={!model}>
                             <span className="text-danger">Model required</span>
                         </ShouldRender>
                     </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input value={price} onChange={this.onControlChange} name="price" type="text" class="form-control" id="price" placeholder="Price" />
+                    <div className="mb-3">
+                        <label for="price" className="form-label">Price</label>
+                        <input value={price} onChange={this.onControlChange} name="price" type="text" className="form-control" id="price" placeholder="Price" />
                         <ShouldRender cond={!price}>
                             <span className="text-danger">Price required</span>
                         </ShouldRender>
                     </div>
-                    <div class="mb-3">
-                        <label for="inStock" class="form-check-label">In Stock?</label>
+                    <div className="mb-3">
+                        <label for="inStock" className="form-check-label">In Stock?</label>
                         <input onChange={this.onControlChange} name="inStock" className="form-check-input" type="checkbox" id="inStock" />
                     </div>
-                    <div class="mb-3">
-                        <label for="discount" class="form-label">Discount</label>
-                        <input value={discount} onChange={this.onControlChange} name="discount" type="text" class="form-control" id="discount" placeholder="Discount" />
+                    <div className="mb-3">
+                        <label for="discount" className="form-label">Discount</label>
+                        <input value={discount} onChange={this.onControlChange} name="discount" type="text" className="form-control" id="discount" placeholder="Discount" />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                         <button disabled={!brand || !model || !price} type="submit" className="btn btn-success">
                             Save
                             <i className="fa fa-save"></i>
