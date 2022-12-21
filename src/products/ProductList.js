@@ -12,15 +12,16 @@ const ProductList = () => {
     });
     const [hasError, setError] = useState(false);
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
 
     useEffect(() => {
-        axios.get(`https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/10`)
+        axios.get(`https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/${limit}`)
             .then(res => {
                 setError(false);
                 setResponse(res.data);
             })
             .catch(err => setError(true));
-    }, [page]);
+    }, [page, limit]);
 
     const onPrev = () => {
         if (page > 1)
@@ -29,6 +30,10 @@ const ProductList = () => {
     const onNext = () => {
         if (page < response.metadata.pages)
             setPage(page + 1);
+    };
+
+    const onLimitChange = (evt) => {
+        setLimit(evt.target.value);
     };
 
     return <div className="container">
@@ -51,7 +56,14 @@ const ProductList = () => {
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
-
+            <div className="col-2">
+                <select onChange={onLimitChange} className="form-select">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
             <div className="col-2">
                 <Link className="btn btn-danger btn-sm"
                     to="/products/new">
@@ -64,7 +76,7 @@ const ProductList = () => {
                 product => <ProductItem key={product._id} product={product} />
             )
         }
-    </div>;
+    </div >;
 }
 
 export default ProductList;
