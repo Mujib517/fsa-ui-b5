@@ -13,15 +13,17 @@ const ProductList = () => {
     const [hasError, setError] = useState(false);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('');
 
     useEffect(() => {
-        axios.get(`https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/${limit}`)
+        axios.get(`https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/${limit}?search=${filter}`)
             .then(res => {
                 setError(false);
                 setResponse(res.data);
             })
             .catch(err => setError(true));
-    }, [page, limit]);
+    }, [page, limit, filter]);
 
     const onPrev = () => {
         if (page > 1)
@@ -34,6 +36,14 @@ const ProductList = () => {
 
     const onLimitChange = (evt) => {
         setLimit(evt.target.value);
+    };
+
+    const onSearchChange = (evt) => {
+        setSearch(evt.target.value);
+    };
+
+    const onSearch = () => {
+        setFilter(search);
     };
 
     return <div className="container">
@@ -54,6 +64,14 @@ const ProductList = () => {
             <div className="col-1">
                 <button disabled={page === response.metadata.pages} onClick={onNext} className="btn btn-sm btn-outline-secondary">
                     <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            <div className="col-2">
+                <input value={search} onChange={onSearchChange} type="text" className="form-control" placeholder="Search" />
+            </div>
+            <div className="col-1">
+                <button onClick={onSearch} className="btn btn-sm btn-outline-primary">
+                    <i class="fa-solid fa-search"></i>
                 </button>
             </div>
             <div className="col-2">
