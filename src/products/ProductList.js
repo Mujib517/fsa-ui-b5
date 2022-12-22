@@ -15,15 +15,18 @@ const ProductList = () => {
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('');
+    const [sort, setSort] = useState('');
+    const [dir, setDir] = useState(null);
 
     useEffect(() => {
-        axios.get(`https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/${limit}?search=${filter}`)
+        const url = `https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/${limit}?search=${filter}&sort=${sort}&direction=${dir}`;
+        axios.get(url)
             .then(res => {
                 setError(false);
                 setResponse(res.data);
             })
             .catch(err => setError(true));
-    }, [page, limit, filter]);
+    }, [page, limit, filter, sort]);
 
     const onPrev = () => {
         if (page > 1)
@@ -46,6 +49,18 @@ const ProductList = () => {
         setFilter(search);
     };
 
+    const onSortChange = (evt) => {
+        const selectedValue = evt.target.value;
+        if (selectedValue) {
+            const tokens = selectedValue.split(':');
+            setSort(tokens[0]);
+            setDir(tokens[1]);
+        } else {
+            setSort('');
+            setDir(null);
+        }
+    };
+
     return <div className="container">
         <h4>Products</h4>
         <ShouldRender cond={hasError}>
@@ -54,7 +69,7 @@ const ProductList = () => {
         <div className="row m-2">
             <div className="col-1">
                 <button disabled={page === 1} onClick={onPrev} className="btn btn-sm btn-outline-secondary">
-                    <i class="fa-solid fa-chevron-left"></i>
+                    <i className="fa-solid fa-chevron-left"></i>
                 </button>
             </div>
 
@@ -80,6 +95,17 @@ const ProductList = () => {
                     <option>20</option>
                     <option>50</option>
                     <option>100</option>
+                </select>
+            </div>
+            <div className="col-2">
+                <select className="form-select" onChange={onSortChange}>
+                    <option value="">Sort By</option>
+                    <option value="price:asc">Price Low to High</option>
+                    <option value="price:desc">Price High to Low</option>
+                    <option value="brand:asc">Brand Ascending</option>
+                    <option value="brand:desc">Brand Descending</option>
+                    <option value="model:asc">Model Ascending</option>
+                    <option value="model:desc">Model Descending</option>
                 </select>
             </div>
             <div className="col-2">
