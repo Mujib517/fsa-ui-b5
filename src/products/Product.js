@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Product.css';
+import NoImage from '../assets/img/no-img.jpeg';
 
 const Product = ({ product }) => {
 
@@ -12,7 +13,7 @@ const Product = ({ product }) => {
     return <div className="col-md-3 offset-md-1">
         <Link to={`/products/detail/${product._id}`}>
             <div className="card">
-                <img alt="product" src={product.image} className="card-img-top" width="100" he
+                <img alt="product" src={product.image || NoImage} className="card-img-top" width="100" he
                     height="200" />
                 <div className="card-body">
                     <div className="card-title">
