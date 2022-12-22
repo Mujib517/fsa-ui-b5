@@ -68,28 +68,32 @@ const ProductList = () => {
         </ShouldRender>
         <div className="row m-2">
             <div className="col-1">
-                <button disabled={page === 1} onClick={onPrev} className="btn btn-sm btn-outline-secondary">
+                <button disabled={page === 1} onClick={onPrev}
+                    className="btn btn-sm btn-outline-secondary m-1">
                     <i className="fa-solid fa-chevron-left"></i>
                 </button>
-            </div>
-
-            <div className="col-4">
-                <span>Page {page} of {response.metadata.pages} (total {response.metadata.count} records )</span>
-            </div>
-            <div className="col-1">
-                <button disabled={page === response.metadata.pages} onClick={onNext} className="btn btn-sm btn-outline-secondary">
+                <button disabled={page === response.metadata.pages}
+                    onClick={onNext} className="btn btn-sm btn-outline-secondary">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
-            <div className="col-2">
-                <input value={search} onChange={onSearchChange} type="text" className="form-control" placeholder="Search" />
+            <div className="col-2 m-1">
+                <span>Page {page} of {response.metadata.pages}</span>
             </div>
-            <div className="col-1">
+            <div className="col-3 search-box">
+                {/* 
                 <button onClick={onSearch} className="btn btn-sm btn-outline-primary">
                     <i class="fa-solid fa-search"></i>
-                </button>
+                </button> */}
+
+                <div class="input-group mb-3">
+                    <input value={search} onChange={onSearchChange} placeholder="Search" type="text" class="form-control" />
+                    <button onClick={onSearch} className="input-group-text btn btn-md btn-outline-secondary">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
             </div>
-            <div className="col-2">
+            <div className="col-1">
                 <select onChange={onLimitChange} className="form-select">
                     <option>10</option>
                     <option>20</option>

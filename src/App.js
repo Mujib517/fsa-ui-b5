@@ -20,6 +20,7 @@ import Users from './users/Users';
 import NotFound from './NotFound';
 import NewProduct from './products/NewProduct';
 import ProductDetail from './products/ProductDetail';
+import Login from './auth/Loging';
 
 const App = () => {
     return <div>
@@ -33,6 +34,7 @@ const App = () => {
                 <Route path="/users" element={<Users />} />
                 <Route path="/products/new" element={<NewProduct />} />
                 <Route path="/products/detail/:id" element={<ProductDetail />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
