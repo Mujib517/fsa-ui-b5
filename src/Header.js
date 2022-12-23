@@ -1,7 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+
+    const navigate = useNavigate();
+
+    const onLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/login');
+    };
+
     return <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
             <Link to="/" className="navbar-brand">FSA Products</Link>
@@ -23,7 +31,12 @@ const Header = () => {
                         <Link className="nav-link" to="/contact">Contact</Link>
                     </li>
                 </ul>
-            </div >
+            </div>
+            <div>
+                <button className="btn btn-warning m-1">Signup</button>
+                <Link to="/login" className="btn btn-success m-1">Login</Link>
+                <button onClick={onLogout} className="btn btn-danger m-1">Logout</button>
+            </div>
         </div >
     </nav>
 };

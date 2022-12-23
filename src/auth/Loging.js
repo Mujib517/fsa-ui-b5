@@ -1,4 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import ShouldRender from '../common/ShouldRender';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -7,10 +10,20 @@ const Login = () => {
         password: ''
     });
 
-    const onLogin = (evt) => {
-        console.log("logging in...");
-        evt.preventDefault();
-        console.log(user);
+    const [hasError, setError] = useState(false);
+
+    const navigate = useNavigate();
+
+    const onLogin = async (evt) => {
+        try {
+            evt.preventDefault();
+            const res = await axios.post('https://fsa-api-b4.onrender.com/api/users/signin', user);
+            localStorage.setItem('user', JSON.stringify(res.data));
+            // navigate
+            navigate('/products');
+        } catch (err) {
+            setError(true);
+        }
     };
 
     const onInputChange = (evt) => {
@@ -20,7 +33,13 @@ const Login = () => {
 
     return <div className="container">
         <h1>Login</h1>
+
         <div className="col-5">
+            <ShouldRender cond={hasError}>
+                <div className="alert alert-danger">
+                    Wrong username or password
+                </div>
+            </ShouldRender>
             <form onSubmit={onLogin}>
                 <div>
                     <label for="email" className="form-label">Email</label>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../utils/axios';
 import ProductItem from './Product';
 import Error from '../common/Error';
 import ShouldRender from '../common/ShouldRender';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
     const [response, setResponse] = useState({
@@ -17,15 +17,20 @@ const ProductList = () => {
     const [filter, setFilter] = useState('');
     const [sort, setSort] = useState('');
     const [dir, setDir] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const url = `https://fsa-api-b4.onrender.com/api/products/page/${page}/limit/${limit}?search=${filter}&sort=${sort}&direction=${dir}`;
-        axios.get(url)
+        axios.get(`/api/products/page/${page}/limit/${limit}?search=${filter}&sort=${sort}&direction=${dir}`)
             .then(res => {
                 setError(false);
                 setResponse(res.data);
             })
-            .catch(err => setError(true));
+            .catch(err => {
+                if (err.response && err.response.status === 401) {
+                    navigate('/login');
+                } else
+                    setError(true);
+            });
     }, [page, limit, filter, sort]);
 
     const onPrev = () => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from '../utils/axios';
 import ShouldRender from '../common/ShouldRender';
 import Error from '../common/Error';
 /*
@@ -42,7 +42,7 @@ class NewProduct extends Component {
             // single page app
             const productToBeAdded = { ...this.state.product };
             productToBeAdded.inStock = !!productToBeAdded.inStock;
-            await axios.post('https://fsa-api-b4.onrender.com/api/products', productToBeAdded);
+            await axios.post('/api/products', productToBeAdded);
             this.setState({
                 success: true,
                 hasError: false,

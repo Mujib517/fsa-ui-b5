@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axios';
 import ShouldRender from '../common/ShouldRender';
 import * as moment from 'moment';
 
@@ -53,7 +53,7 @@ const ProductDetail = () => {
         // IIFE
         (async () => {
             const id = params.id;
-            const res = await axios.get(`https://fsa-api-b4.onrender.com/api/products/${id}`);
+            const res = await axios.get(`/api/products/${id}`);
             setProduct(res.data);
         })();
     }, []);
