@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ShouldRender from '../common/ShouldRender';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,6 +9,12 @@ const Login = () => {
         email: '',
         password: ''
     });
+
+    const emailRef = useRef(null);
+
+    useEffect(() => {
+        emailRef.current.focus();
+    }, []);
 
     const [hasError, setError] = useState(false);
 
@@ -43,7 +49,7 @@ const Login = () => {
             <form onSubmit={onLogin}>
                 <div>
                     <label for="email" className="form-label">Email</label>
-                    <input onChange={onInputChange} name="email" id="email" className="form-control" type="text" placeholder="email" />
+                    <input ref={emailRef} onChange={onInputChange} name="email" id="email" className="form-control" type="text" placeholder="email" />
                 </div>
                 <div>
                     <label for="password" className="form-label">Password</label>
