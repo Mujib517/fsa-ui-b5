@@ -33,6 +33,21 @@ const ProductList = () => {
             });
     }, [page, limit, filter, sort]);
 
+    const onDeleteNotify = () => {
+        // refresh
+        axios.get(`/api/products/page/${page}/limit/${limit}?search=${filter}&sort=${sort}&direction=${dir}`)
+            .then(res => {
+                setError(false);
+                setResponse(res.data);
+            })
+            .catch(err => {
+                if (err.response && err.response.status === 401) {
+                    navigate('/login');
+                } else
+                    setError(true);
+            });
+    };
+
     const onPrev = () => {
         if (page > 1)
             setPage(page - 1);
@@ -126,7 +141,7 @@ const ProductList = () => {
         </div>
         {
             response.data.map(
-                product => <ProductItem key={product._id} product={product} />
+                product => <ProductItem key={product._id} product={product} onNotify={onDeleteNotify} />
             )
         }
     </div >;
