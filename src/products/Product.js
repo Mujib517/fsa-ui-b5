@@ -12,8 +12,11 @@ const Product = ({ product, onNotify }) => {
     };
 
     const remove = async () => {
-        await axios.delete(`https://fsa-api-b4.onrender.com/api/products/${product._id}`);
-        onNotify();
+        const result = window.confirm('Are you sure you want to delete?');
+        if (result) {
+            await axios.delete(`https://fsa-api-b4.onrender.com/api/products/${product._id}`);
+            onNotify();
+        }
     };
 
     return <div className="col-md-4 offset-md-1">
