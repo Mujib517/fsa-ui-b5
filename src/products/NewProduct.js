@@ -56,13 +56,16 @@ class NewProduct extends Component {
             // binary
 
             const formData = new FormData();
-            formData.append('brand', productToBeAdded.brand);
-            formData.append('model', productToBeAdded.model);
-            formData.append('inStock', productToBeAdded.inStock);
-            formData.append('price', productToBeAdded.price);
-            formData.append('discount', productToBeAdded.discount);
-            formData.append('image', productToBeAdded.image);
-
+            // formData.append('brand', productToBeAdded.brand);
+            // formData.append('model', productToBeAdded.model);
+            // formData.append('inStock', productToBeAdded.inStock);
+            // formData.append('price', productToBeAdded.price);
+            // formData.append('discount', productToBeAdded.discount);
+            // formData.append('image', productToBeAdded.image);
+            // reflection, bracket notation
+            for (let key in productToBeAdded) {
+                formData.append(key, productToBeAdded[key]);
+            }
             await axios.post('/api/products', formData);
             this.setState({
                 success: true,
