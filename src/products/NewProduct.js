@@ -18,6 +18,7 @@ class NewProduct extends Component {
             inStock: false,
             price: '',
             discount: '',
+            image: ''
         },
         success: false,
         hasError: false,
@@ -33,6 +34,14 @@ class NewProduct extends Component {
         this.setState({ product: productState });
     }
 
+    onFileChange = (evt) => {
+        const newProduct = {
+            ...this.state.product,
+            image: evt.target.files[0]
+        };
+        this.setState({ product: newProduct });
+    };
+
     onSave = async (e) => {
         e.preventDefault();
         try {
@@ -42,7 +51,19 @@ class NewProduct extends Component {
             // single page app
             const productToBeAdded = { ...this.state.product };
             productToBeAdded.inStock = !!productToBeAdded.inStock;
-            await axios.post('/api/products', productToBeAdded);
+            console.log(productToBeAdded);
+            // application/json
+            // binary
+
+            const formData = new FormData();
+            formData.append('brand', productToBeAdded.brand);
+            formData.append('model', productToBeAdded.model);
+            formData.append('inStock', productToBeAdded.inStock);
+            formData.append('price', productToBeAdded.price);
+            formData.append('discount', productToBeAdded.discount);
+            formData.append('image', productToBeAdded.image);
+
+            await axios.post('/api/products', formData);
             this.setState({
                 success: true,
                 hasError: false,
@@ -110,6 +131,10 @@ class NewProduct extends Component {
                     <div className="mb-3">
                         <label for="discount" className="form-label">Discount</label>
                         <input value={discount} onChange={this.onControlChange} name="discount" type="text" className="form-control" id="discount" placeholder="Discount" />
+                    </div>
+                    <div className="mb-3">
+                        <label for="image" className="form-label">Image</label>
+                        <input onChange={this.onFileChange} name="image" type="file" className="form-control" />
                     </div>
                     <div className="mb-3">
                         <button disabled={!brand || !model || !price} type="submit" className="btn btn-success">
