@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../utils/axios';
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import ShouldRender from '../common/ShouldRender';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ const Login = () => {
     const onLogin = async (evt) => {
         try {
             evt.preventDefault();
-            const res = await axios.post('https://fsa-api-b4.onrender.com/api/users/signin', user);
+            const res = await axios().post('/api/users/signin', user);
             localStorage.setItem('user', JSON.stringify(res.data));
             userState.setAuthenticated(true);
             // navigate

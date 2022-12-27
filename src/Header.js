@@ -10,6 +10,7 @@ const Header = () => {
 
     const onLogout = () => {
         localStorage.removeItem('user');
+        // notify app component
         userState.setAuthenticated(false);
         navigate('/login');
     };
@@ -44,6 +45,10 @@ const Header = () => {
                 <ShouldRender cond={userState.authenticated}>
                     <button onClick={onLogout} className="btn btn-danger m-1">Logout</button>
                 </ShouldRender>
+                <button className="btn btn-secondary">
+                    <i className="fa-sharp fa-solid fa-cart-plus"></i>
+                    <span className="badge">4</span>
+                </button>
             </div>
         </div >
     </nav>

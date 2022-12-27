@@ -14,7 +14,7 @@ const Product = ({ product, onNotify }) => {
     const remove = async () => {
         const result = window.confirm('Are you sure you want to delete?');
         if (result) {
-            await axios.delete(`https://fsa-api-b4.onrender.com/api/products/${product._id}`);
+            await axios().delete(`https://fsa-api-b4.onrender.com/api/products/${product._id}`);
             onNotify();
         }
     };

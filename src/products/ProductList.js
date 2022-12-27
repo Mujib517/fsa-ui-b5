@@ -20,7 +20,7 @@ const ProductList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`/api/products/page/${page}/limit/${limit}?search=${filter}&sort=${sort}&direction=${dir}`)
+        axios().get(`/api/products/page/${page}/limit/${limit}?search=${filter}&sort=${sort}&direction=${dir}`)
             .then(res => {
                 setError(false);
                 setResponse(res.data);

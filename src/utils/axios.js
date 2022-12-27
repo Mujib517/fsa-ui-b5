@@ -17,4 +17,4 @@ function init() {
     return instance;
 }
 
-export default init();
+export default init;
