@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import ShouldRender from '../common/ShouldRender';
 import { useNavigate } from 'react-router-dom';
+import AppContext from '../context/AppContext';
 
 const Login = () => {
 
@@ -9,6 +10,8 @@ const Login = () => {
         email: '',
         password: ''
     });
+
+    const userState = useContext(AppContext);
 
     const emailRef = useRef(null);
 
@@ -25,6 +28,7 @@ const Login = () => {
             evt.preventDefault();
             const res = await axios.post('https://fsa-api-b4.onrender.com/api/users/signin', user);
             localStorage.setItem('user', JSON.stringify(res.data));
+            userState.setAuthenticated(true);
             // navigate
             navigate('/products');
         } catch (err) {

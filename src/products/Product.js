@@ -22,8 +22,8 @@ const Product = ({ product, onNotify }) => {
     return <div className="col-md-4 offset-md-1">
         <div className="card">
             <Link to={`/products/detail/${product._id}`}>
-                <img alt="product" src={product.image || NoImage} className="card-img-top" width="100" he
-                    height="200" />
+                <img alt="product" src={product.image || NoImage} className="card-img-top" width="250" he
+                    height="280" />
                 <div className="card-body">
                     <div className="card-title">
                         <b>{product.brand} {product.model}</b>
@@ -33,7 +33,7 @@ const Product = ({ product, onNotify }) => {
                 </div>
             </Link>
             <div className="card-footer">
-                <button className="custom-btn btn btn-danger btn-sm" disabled={!product.inStock}>
+                <button className="custom-btn btn btn-danger btn-sm m-1" disabled={!product.inStock}>
                     Add to cart
                     <i className="fa-sharp fa-solid fa-cart-plus"></i>
                 </button>

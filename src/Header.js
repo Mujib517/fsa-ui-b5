@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ShouldRender from './common/ShouldRender';
+import AppContext from './context/AppContext';
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const userState = useContext(AppContext);
 
     const onLogout = () => {
         localStorage.removeItem('user');
+        userState.setAuthenticated(false);
         navigate('/login');
     };
 
@@ -33,9 +37,13 @@ const Header = () => {
                 </ul>
             </div>
             <div>
-                <button className="btn btn-warning m-1">Signup</button>
-                <Link to="/login" className="btn btn-success m-1">Login</Link>
-                <button onClick={onLogout} className="btn btn-danger m-1">Logout</button>
+                <ShouldRender cond={!userState.authenticated}>
+                    <button className="btn btn-warning m-1">Signup</button>
+                    <Link to="/login" className="btn btn-success m-1">Login</Link>
+                </ShouldRender>
+                <ShouldRender cond={userState.authenticated}>
+                    <button onClick={onLogout} className="btn btn-danger m-1">Logout</button>
+                </ShouldRender>
             </div>
         </div >
     </nav>

@@ -20,10 +20,24 @@ import Users from './users/Users';
 import NotFound from './NotFound';
 import NewProduct from './products/NewProduct';
 import ProductDetail from './products/ProductDetail';
-import Login from './auth/Loging';
+import Login from './auth/Login';
+import AppContext from './context/AppContext';
+import { useEffect, useState } from 'react';
 
 const App = () => {
-    return <div>
+    const [authenticated, setAuthenticated] = useState(false);
+    const userState = {
+        authenticated,
+        setAuthenticated
+    };
+
+    useEffect(() => {
+        if (localStorage.getItem('user')) {
+            setAuthenticated(true);
+        }
+    }, []);
+
+    return <AppContext.Provider value={userState}>
         <BrowserRouter>
             <Header />
             <Routes>
@@ -39,7 +53,7 @@ const App = () => {
             </Routes>
             <Footer />
         </BrowserRouter>
-    </div>
+    </AppContext.Provider>
 };
 
 export default App;
