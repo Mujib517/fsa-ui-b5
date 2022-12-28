@@ -36,7 +36,7 @@ class Users extends React.Component {
             <ShouldRender cond={this.state.loading}>
                 <Loader />
             </ShouldRender>
-            {this.state.users.map(user => <UserItem user={user} />)}
+            {this.state.users.map(user => <UserItem key={user.login} user={user} />)}
         </div>
     }
 }

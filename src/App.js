@@ -27,8 +27,7 @@ import { useEffect, useState } from 'react';
 const App = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const userState = {
-        authenticated,
-        setAuthenticated
+        authenticated, setAuthenticated
     };
 
     useEffect(() => {
